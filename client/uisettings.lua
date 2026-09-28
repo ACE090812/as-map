@@ -1,4 +1,4 @@
---- Forwards ave_hud UI knobs (colorMode / transparency / radius / gradient / perspective) into map NUI.
+--- Forwards as-hud UI knobs (colorMode / transparency / radius / gradient / perspective) into map NUI.
 
 local DEFAULT_UI_SETTINGS = {
     transparency = 80,
@@ -28,7 +28,7 @@ end
 
 local function getHudSettings()
     local ok, settings = pcall(function()
-        return exports.ave_hud:getUiSettings()
+        return exports.sd_hud:getUiSettings()
     end)
 
     return ok and settings or nil
@@ -45,12 +45,12 @@ RegisterNUICallback('getUiSettings', function(_, cb)
     cb(mergeUiSettings(getHudSettings()))
 end)
 
-AddEventHandler('ave:uiSettingsChanged', function(settings)
+AddEventHandler('sd:uiSettingsChanged', function(settings)
     pushSettings(settings)
 end)
 
 AddEventHandler('onClientResourceStart', function(resource)
-    if resource ~= 'ave_hud' and resource ~= GetCurrentResourceName() then return end
+    if resource ~= 'sd_hud' and resource ~= GetCurrentResourceName() then return end
 
     CreateThread(function()
         Wait(1000)

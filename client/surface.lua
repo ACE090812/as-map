@@ -20,7 +20,7 @@ local function publishMinimapVisibility()
 end
 
 function Map.surface.publishMinimapRect()
-    TriggerEvent('ave_map:minimapRect', Map.minimapStyle.getScreenRect())
+    TriggerEvent('sd-map:minimapRect', Map.minimapStyle.getScreenRect())
 end
 
 local function hideNativeRadar()
@@ -29,36 +29,36 @@ end
 
 local mapHidHud = false
 
-local function setAveHud(visible)
-    if GetResourceState('ave_hud') ~= 'started' then
+local function setsdHud(visible)
+    if GetResourceState('sd-map') ~= 'started' then
         return
     end
 
     pcall(function()
-        exports.ave_hud:show(visible)
+        exports.sd_map:show(visible)
     end)
 end
 
-local function hideAveHud()
+local function hidesdHud()
     if mapHidHud then
         return
     end
 
     mapHidHud = true
-    setAveHud(false)
+    setsdHud(false)
 end
 
-local function restoreAveHud()
+local function restoresdHud()
     if not mapHidHud then
         return
     end
 
     mapHidHud = false
-    setAveHud(true)
+    setsdHud(true)
 end
 
-function Map.surface.restoreAveHud()
-    restoreAveHud()
+function Map.surface.restoresdHud()
+    restoresdHud()
 end
 
 local wantedMinimap = Map.config.minimapEnabled == true
@@ -165,14 +165,14 @@ function Map.surface.openFullscreen()
     end
 
     if Map.state.fullscreen then
-        hideAveHud()
+        hidesdHud()
         return true
     end
 
     Map.player.sendNow()
 
     Map.setState('fullscreen', true)
-    hideAveHud()
+    hidesdHud()
 
     Map.send({
         type = 'map:visibility',
@@ -187,7 +187,7 @@ function Map.surface.closeFullscreen()
         return
     end
 
-    restoreAveHud()
+    restoresdHud()
 
     Map.send({
         type = 'map:visibility',

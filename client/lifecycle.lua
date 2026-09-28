@@ -83,8 +83,8 @@ function Map.sessionDeactivate()
     Map.surface.suspend()
     DisplayRadar(true)
 
-    if Map.surface.restoreAveHud then
-        Map.surface.restoreAveHud()
+    if Map.surface.restoresdHud then
+        Map.surface.restoresdHud()
     end
 end
 
@@ -154,7 +154,7 @@ AddEventHandler('onResourceStop', function(resourceName)
     ClearGpsMultiRoute()
     DisplayRadar(true)
 
-    if Map.surface and Map.surface.restoreAveHud then
-        Map.surface.restoreAveHud()
+    if Map.surface and Map.surface.restoresdHud then
+        Map.surface.restoresdHud()
     end
 end)
